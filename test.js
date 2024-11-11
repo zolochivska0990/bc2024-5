@@ -2,14 +2,14 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-// Для парсингу JSON і форм
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Сховище для нотаток (в реальному додатку замініть на базу даних)
+
 let notes = {};
 
-// GET /notes/<ім’я нотатки>
+
 app.get('/notes/:noteName', (req, res) => {
     const noteName = req.params.noteName;
     if (notes[noteName]) {
@@ -19,7 +19,7 @@ app.get('/notes/:noteName', (req, res) => {
     }
 });
 
-// PUT /notes/<ім’я нотатки>
+
 app.put('/notes/:noteName', (req, res) => {
     const noteName = req.params.noteName;
     if (notes[noteName]) {
@@ -30,7 +30,7 @@ app.put('/notes/:noteName', (req, res) => {
     }
 });
 
-// DELETE /notes/<ім’я нотатки>
+
 app.delete('/notes/:noteName', (req, res) => {
     const noteName = req.params.noteName;
     if (notes[noteName]) {
@@ -41,7 +41,7 @@ app.delete('/notes/:noteName', (req, res) => {
     }
 });
 
-// GET /notes
+
 app.get('/notes', (req, res) => {
     const notesList = Object.keys(notes).map(name => ({
         name: name,
@@ -50,7 +50,7 @@ app.get('/notes', (req, res) => {
     res.status(200).json(notesList);
 });
 
-// POST /write
+
 app.post('/write', (req, res) => {
     const { note_name, note } = req.body;
     if (notes[note_name]) {
@@ -61,7 +61,7 @@ app.post('/write', (req, res) => {
     }
 });
 
-// GET /UploadForm.html
+
 app.get('/UploadForm.html', (req, res) => {
     const htmlForm = `
     <html>
@@ -79,7 +79,7 @@ app.get('/UploadForm.html', (req, res) => {
     res.status(200).send(htmlForm);
 });
 
-// Запуск сервера
+
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
